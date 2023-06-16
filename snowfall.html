@@ -21,16 +21,16 @@
             position: absolute;
             width: 15px;
             height: 15px;
-            background: white;
+            background: lightblue;
             border-radius: 50%;
             pointer-events: none;
-            animation: snowfall linear infinite;
+            animation: snowfall 5s linear infinite;
             transform: translate(-50%, -50%);
         }
         
         @keyframes snowfall {
             0% {
-                transform: translate(-50%, -50%);
+                transform: translate(-50%, -100%);
             }
             100% {
                 transform: translate(-50%, 100vh);
@@ -52,7 +52,7 @@
             }, 5000);
         }
 
-        setInterval(createSnowflake, 100);
+        setInterval(createSnowflake, 500);
     </script>
 </body>
 </html>
