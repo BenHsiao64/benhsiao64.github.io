@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://cdn.rawgit.com/jeromeetienne/AR.js/2.0.8/aframe/build/aframe-ar.js"></script>
+    <style>
+        a-scene {
+            height: 100vh;
+            width: 100vw;
+        }
+        
+        a-camera {
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            height: 100%;
+            width: 100%;
+            cursor: pointer;
+        }
+        
+        .snowflake {
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background: white;
+            border-radius: 50%;
+            pointer-events: none;
+            animation: snowfall 5s linear infinite;
+            <!-- transform: translate(-50%, -50%); -->
+        }
+        
+        @keyframes snowfall {
+            0% {
+                transform: translate(-50%, -100%);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(-50%, 100vh);
+                opacity: 0.5;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a-scene embedded arjs>
+        <a-camera>
+            <a-entity position="0.5 -0.5 -2" >
+                <a-plane scale="0.3 0.3 0.3" material="src: https://benhsiao64.github.io/snowman1-opacity.png" opacity="0.6"></a-plane>
+            </a-entity>
+        </a-camera>
+        <a-entity id="snowfall"></a-entity>
+
+    </a-scene>
+
+    <div id="snowfall"></div>
+    <script>
+        function createSnowflake() {
+            const snowflake = document.createElement('div');
+            snowflake.className = 'snowflake';
+            snowflake.style.left = Math.random() * 100 + 'vw';
+            document.getElementById('snowfall').appendChild(snowflake);
+            setTimeout(() => {
+                snowflake.remove();
+            }, 5000);
+        }
+
+        setInterval(createSnowflake, 300);
+    </script>
+    
+</body>
+</html>
