@@ -49,7 +49,7 @@
     <body style="margin: 0; overflow: hidden;">
               
         <div id="snowfall"></div>
-        <!--
+        
         <script>
             function createSnowflake() {
                 const snowflake = document.createElement('div');
@@ -63,7 +63,7 @@
     
             setInterval(createSnowflake, 300);
         </script>
-        -->
+        
         <a-scene 
         vr-mode-ui="enabled: false;"
         loading-screen="enabled: false;"
@@ -76,14 +76,14 @@
                 id="animated-marker"
                 type="pattern"
                 preset="custom"
-                url="assets/marker.patt"
+                url="assets/marker_snowman.patt"
                 raycaster="objects: .clickable"
                 emitevents="true"
                 cursor="fuse: false; rayOrigin: mouse;"
                 id="markerA"
             >
                 <a-image
-                    src="assets/asset.jpeg"
+                    src="assets/asset_snowman-opacity.png"
                     scale="1 1 1"
                     class="clickable"
                     rotation="-90 0 0"
