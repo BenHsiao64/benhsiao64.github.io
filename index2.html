@@ -27,7 +27,7 @@
                 id="markerA"
             >
                 <a-image
-                    src="assets/asset_zongzi.png"
+                    src="assets/asset_hotsnow.png"
                     scale="1 1 1"
                     class="clickable"
                     rotation="-90 0 0"
@@ -85,6 +85,25 @@
             >
                 <a-image
                     src="assets/asset_dragon-boat.png"
+                    scale="1 1 1"
+                    class="clickable"
+                    rotation="-90 0 0"
+                    gesture-handler
+                ></a-image>
+            </a-marker>
+
+            <a-marker
+                id="animated-marker5"
+                type="pattern"
+                preset="custom"
+                url="assets/marker_zongzi.patt"
+                raycaster="objects: .clickable"
+                emitevents="true"
+                cursor="fuse: false; rayOrigin: mouse;"
+                id="markerE"
+            >
+                <a-image
+                    src="assets/asset_zongzi.png"
                     scale="1 1 1"
                     class="clickable"
                     rotation="-90 0 0"
