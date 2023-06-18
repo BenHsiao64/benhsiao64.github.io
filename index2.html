@@ -26,6 +26,33 @@
             });
         </script>
 
+        
+        <style>
+            html,
+            body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            }
+
+            #frame {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url(assets/zongzi-frame.png) center center no-repeat;
+            background-size: 100% 100%;
+            opacity:0.5
+            }
+
+            a-scene {
+            width: 100%;
+            height: 100%;
+            }
+        </style>
+        
+
         <!-- set for snowfall effects-->
         <!-- disable snowfall effects
         <style>
@@ -72,6 +99,9 @@
     </head>
 
     <body style="margin: 0; overflow: hidden;">
+
+        <div id="frame"></div>
+
         <!-- snowfall effects -->
         <!-- disable snowfall effects 
         <div id="snowfall"></div>
@@ -219,14 +249,6 @@
             
             <a-entity id="snowfall"></a-entity>
 
-            <!-- put a big snowman fulfll whole screen-->
-            <!--
-            <a-camera>
-                <a-entity position="0 0 -2" >
-                    <a-plane scale="2.0 1 1" material="src: https://benhsiao64.github.io/snowman1-opacity.png" opacity="0.6"></a-plane>
-                </a-entity>
-            </a-camera>
-            -->
 
         </a-scene>
         
