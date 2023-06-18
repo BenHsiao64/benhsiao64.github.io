@@ -27,6 +27,7 @@
         </script>
 
         <!-- set for snowfall effects-->
+        <!-- disable snowfall effects
         <style>
             a-scene {
                 height: 100vh;
@@ -45,7 +46,7 @@
             }
             
             .snowflake {
-                position:fixed;
+                position:absolute;
                 width: 15px;
                 height: 15px;
                 background: white;
@@ -66,11 +67,13 @@
                 }
             }
         </style>
+        -->
 
     </head>
 
     <body style="margin: 0; overflow: hidden;">
         <!-- snowfall effects -->
+        <!-- disable snowfall effects 
         <div id="snowfall"></div>
         <script>
             function createSnowflake() {
@@ -85,8 +88,7 @@
 
             setInterval(createSnowflake, 300);
         </script>
-        
-        
+        -->                
         
         <a-scene
             vr-mode-ui="enabled: false;"
@@ -130,7 +132,7 @@
                 <a-video
                     src="#vid"
                     scale="1 1 1"
-                    position="0 -0.5 -2"
+                    position="0 0.1 0"
                     rotation="-90 0 0"
                     class="clickable"
                     gesture-handler
@@ -213,8 +215,20 @@
                 ></a-image>
             </a-marker>
 
-
             <a-entity camera></a-entity>
+            
+            <a-entity id="snowfall"></a-entity>
+
+            <!-- put a big snowman fulfll whole screen-->
+            <!--
+            <a-camera>
+                <a-entity position="0 0 -2" >
+                    <a-plane scale="2.0 1 1" material="src: https://benhsiao64.github.io/snowman1-opacity.png" opacity="0.6"></a-plane>
+                </a-entity>
+            </a-camera>
+            -->
+
         </a-scene>
+        
     </body>
 </html>
