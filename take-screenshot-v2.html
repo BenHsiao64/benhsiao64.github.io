@@ -4,17 +4,13 @@
     <meta charset="utf-8">
     <title>A-Frame Screenshot Example</title>
     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
-    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
-    <script src="https://raw.githack.com/AR-js-org/studio-backend/master/src/modules/marker/tools/gesture-detector.js"></script>
-    <script src="https://raw.githack.com/AR-js-org/studio-backend/master/src/modules/marker/tools/gesture-handler.js"></script>
-   
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
   </head>
   <body>
     <a-scene embedded>
       <!-- Your A-Frame scene content here -->
       
       <button id="screenshotButton" style="position: fixed; bottom: 20px; right: 20px; z-index: 999;">Take Screenshot</button>
-      <a-entity camera></a-entity>
     </a-scene>
 
     <script>
@@ -22,25 +18,21 @@
       var canvas = document.querySelector('canvas.a-canvas');
 
       screenshotButton.addEventListener('click', function() {
-        // Create a temporary link element
-        var link = document.createElement('a');
+        // Capture the A-Frame scene and convert it to a canvas
+        html2canvas(canvas).then(function(capturedCanvas) {
+          // Convert the canvas to a data URL representing the image
+          var dataURL = capturedCanvas.toDataURL('image/png');
 
-        // Set the download attribute to the desired filename
-        link.download = 'screenshot.png';
-
-        // Convert the contents of the canvas to a Blob
-        canvas.toBlob(function(blob) {
-          // Create a URL for the Blob
-          var url = URL.createObjectURL(blob);
-
-          // Set the href of the link to the URL
-          link.href = url;
+          // Create a temporary link element
+          var link = document.createElement('a');
+          link.href = dataURL;
+          link.download = 'screenshot.png';
 
           // Trigger a click event on the link to prompt the user to save the file
           link.click();
 
           // Cleanup
-          URL.revokeObjectURL(url);
+          link.remove();
         });
       });
     </script>
