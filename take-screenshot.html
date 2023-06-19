@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>A-Frame Screenshot Example</title>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+    <script src="https://raw.githack.com/AR-js-org/studio-backend/master/src/modules/marker/tools/gesture-detector.js"></script>
+    <script src="https://raw.githack.com/AR-js-org/studio-backend/master/src/modules/marker/tools/gesture-handler.js"></script>
+   
+    <style>
+        a-scene {
+            height: 100vh;
+            width: 100vw;
+        }
+        
+        a-camera {
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            height: 100%;
+            width: 100%;
+            cursor: pointer;
+        }
+        
+        .snowflake {
+            position:absolute;
+            width: 15px;
+            height: 15px;
+            background: lightblue;
+            border-radius: 50%;
+            pointer-events: none;
+            animation: snowfall 5s linear infinite;
+            
+        }
+        
+        @keyframes snowfall {
+            0% {
+                transform: translate(-50%, -100%);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(-50%, 100vh);
+                opacity: 0.5;
+            }
+        }
+    </style>
+
+
+
+  </head>
+  <body>
+    <div id="snowfall"></div>
+    <script>
+        function createSnowflake() {
+            const snowflake = document.createElement('div');
+            snowflake.className = 'snowflake';
+            snowflake.style.left = Math.random() * 100 + 'vw';
+            document.getElementById('snowfall').appendChild(snowflake);
+            setTimeout(() => {
+                snowflake.remove();
+            }, 5000);
+        }
+
+        setInterval(createSnowflake, 300);
+    </script>
+
+
+    <a-scene embedded>
+      <!-- Your A-Frame scene content here -->
+                
+      <a-entity id="snowfall"></a-entity>
+      
+      <button id="screenshotButton" style="position: fixed; bottom: 20px; right: 20px; z-index: 999;">Take Screenshot</button>
+      <a-entity camera></a-entity>
+    
+    </a-scene>
+
+    <script>
+      document.getElementById('screenshotButton').addEventListener('click', function() {
+        // Capture the current frame as a screenshot
+        var canvas = document.querySelector('canvas.a-canvas');
+        var dataURL = canvas.toDataURL('image/png');
+        
+        // Create a temporary link element
+        var link = document.createElement('a');
+        link.href = dataURL;
+        link.download = 'screenshot.png';
+        
+        // Trigger a click event on the link to prompt the user to save the file
+        link.click();
+        
+        // Cleanup
+        link.remove();
+      });
+    </script>
+
+    
+
+  </body>
+</html>
