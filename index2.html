@@ -257,7 +257,26 @@
             >
                 <a-image
                     src="assets/asset_role1.png"
-                    scale="2 2 2"
+                    scale="1 1 1"
+                    class="clickable"
+                    rotation="-90 0 0"
+                    gesture-handler
+                ></a-image>
+            </a-marker>
+
+            <a-marker
+                id="animated-marker7"
+                type="pattern"
+                preset="custom"
+                url="assets/marker_snowboard.patt"
+                raycaster="objects: .clickable"
+                emitevents="true"
+                cursor="fuse: false; rayOrigin: mouse;"
+                id="markerG"
+            >
+                <a-image
+                    src="assets/asset_snowboard.png"
+                    scale="1 1 1"
                     class="clickable"
                     rotation="-90 0 0"
                     gesture-handler
