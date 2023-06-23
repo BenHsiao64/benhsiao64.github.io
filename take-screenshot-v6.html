@@ -25,46 +25,37 @@
     arjs="trackingMethod: best; sourceType: webcam; debugUIEnabled: false;"
     embedded
   >
+    <a-entity camera screenshot="width: 800; height: 600;"></a-entity>
+
     <a-marker preset="hiro">
       <a-box position="0 0.5 0" material="color: red;"></a-box>
       <a-image src="path_to_your_image.png" scale="1 1 1"></a-image>
     </a-marker>
-
-    <a-entity camera></a-entity>
   </a-scene>
 
   <button id="captureButton" onclick="captureAR()">Capture AR</button>
 
   <script>
     function captureAR() {
-      // Get the A-Frame canvas element
-      const canvas = document.querySelector("canvas");
+      const canvas = document.createElement("canvas");
+      const context = canvas.getContext("2d");
 
-      // Set the background color to white temporarily for capturing the screenshot
-      //canvas.style.background = "white";
+      const arScene = document.querySelector("a-scene");
+      const arCamera = document.querySelector("a-entity[camera]");
 
-      // Wait for the next frame to ensure A-Frame has updated the scene
-      requestAnimationFrame(() => {
-        // Capture the canvas as an image using html2canvas
-        html2canvas(canvas).then(function (canvas) {
-          // Convert the captured canvas to a data URL
-          const dataURL = canvas.toDataURL("image/png");
+      const width = arCamera.getAttribute("screenshot").width;
+      const height = arCamera.getAttribute("screenshot").height;
 
-          // Create a download link for the captured image
-          const link = document.createElement("a");
-          link.href = dataURL;
-          link.download = "ar_screenshot.png";
-          document.body.appendChild(link);
+      canvas.width = width;
+      canvas.height = height;
 
-          // Automatically trigger the download
-          link.click();
+      context.drawImage(arScene.components.screenshot.getCanvas(arCamera, width, height), 0, 0, width, height);
 
-          // Clean up the temporary elements
-          document.body.removeChild(link);
-
-          // Restore the original background color
-          canvas.style.background = "";
-        });
+      canvas.toBlob(function (blob) {
+        const link = document.createElement("a");
+        link.href = URL.createObjectURL(blob);
+        link.download = "ar_screenshot.png";
+        link.click();
       });
     }
   </script>
