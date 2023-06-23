@@ -25,37 +25,46 @@
     arjs="trackingMethod: best; sourceType: webcam; debugUIEnabled: false;"
     embedded
   >
-    <a-entity camera screenshot="width: 800; height: 600;"></a-entity>
-
     <a-marker preset="hiro">
       <a-box position="0 0.5 0" material="color: red;"></a-box>
       <a-image src="path_to_your_image.png" scale="1 1 1"></a-image>
     </a-marker>
+
+    <a-entity camera></a-entity>
   </a-scene>
 
   <button id="captureButton" onclick="captureAR()">Capture AR</button>
 
   <script>
     function captureAR() {
-      const canvas = document.createElement("canvas");
-      const context = canvas.getContext("2d");
+      // Get the A-Frame scene element
+      const scene = document.querySelector("a-scene");
 
-      const arScene = document.querySelector("a-scene");
-      const arCamera = document.querySelector("a-entity[camera]");
+      // Set the background color to white temporarily for capturing the screenshot
+      scene.setAttribute("background", "color: white");
 
-      const width = arCamera.getAttribute("screenshot").width;
-      const height = arCamera.getAttribute("screenshot").height;
+      // Wait for the next frame to ensure A-Frame has updated the scene
+      requestAnimationFrame(() => {
+        // Capture the scene as an image using html2canvas
+        html2canvas(scene.canvas).then(function (canvas) {
+          // Convert the captured canvas to a data URL
+          const dataURL = canvas.toDataURL("image/png");
 
-      canvas.width = width;
-      canvas.height = height;
+          // Create a download link for the captured image
+          const link = document.createElement("a");
+          link.href = dataURL;
+          link.download = "ar_screenshot.png";
+          document.body.appendChild(link);
 
-      context.drawImage(arScene.components.screenshot.getCanvas(arCamera, width, height), 0, 0, width, height);
+          // Automatically trigger the download
+          link.click();
 
-      canvas.toBlob(function (blob) {
-        const link = document.createElement("a");
-        link.href = URL.createObjectURL(blob);
-        link.download = "ar_screenshot.png";
-        link.click();
+          // Clean up the temporary elements
+          document.body.removeChild(link);
+
+          // Restore the original background color
+          scene.setAttribute("background", "color: black");
+        });
       });
     }
   </script>
